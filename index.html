@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOKER edição Alfacinha</title>
     <style>
         body {
-            background-color: darknavy;
+            background-color: #000033; /* Dark navy blue */
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -15,89 +15,154 @@
         h1 {
             color: gold;
             font-size: 32px;
-        }
-
-        #passwordContainer {
             margin-top: 50px;
         }
 
-        #questionContainer, #feedbackMessage, #finalMessage {
+        .question-container {
             display: none;
             margin-top: 20px;
         }
 
-        #questionText {
+        .question {
             font-size: 16px;
+            margin-bottom: 15px;
         }
 
-        .option {
+        .options button {
+            background-color: white;
+            color: black;
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
             display: block;
-            margin: 10px 0;
+            width: 50%;
+            margin: 5px auto;
+        }
+
+        .alfacinha-btn {
+            background-color: yellow;
+            color: black;
+            padding: 10px 15px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
             font-size: 12px;
         }
 
-        #alfacinhaBtn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: yellow;
-            border: none;
-            cursor: pointer;
+        .inactive {
+            background-color: grey;
+            cursor: not-allowed;
         }
 
-        .inactive {
-            background-color: gray;
-            cursor: not-allowed;
+        .message {
+            font-size: 16px;
+            margin-top: 20px;
+            color: gold;
+        }
+
+        #passwordPrompt {
+            margin-top: 50px;
+        }
+
+        #passwordInput {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid white;
+            border-radius: 5px;
+            width: 200px;
+            margin-bottom: 20px;
+            background-color: #000033;
+            color: white;
+            text-align: center;
+        }
+
+        #passwordInput:focus {
+            border-color: gold;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: gold;
+            color: #000033;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: darkorange;
+        }
+
+        #intro {
+            display: none;
+            margin-top: 20px;
+            color: white;
+        }
+
+        #finalMessage {
+            display: none;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
     <h1>JOKER edição Alfacinha</h1>
 
-    <div id="passwordContainer">
-        <label for="password">Enter Password: </label>
-        <input type="password" id="password">
-        <button onclick="checkPassword()">Submit</button>
+    <div id="passwordPrompt">
+        <p>Por favor, insira a palavra-passe:</p>
+        <input type="password" id="passwordInput" placeholder="Insira a palavra-passe">
+        <br>
+        <button onclick="checkPassword()">Enviar</button>
     </div>
 
-    <div id="introMessage">
+    <div id="intro">
         <p>"Olá meu amorzinho mais lindo do mundo!<br>
-        Para ter a certeza que não te esqueces de mim, criei este jogo que vai durar os 11 dias que faltam para te ver :(<br>
-        Este jogo chama-se…. JOKER edição Alfacinha &lt;3<br>
+        Para ter a certeza que não te esqueces de mim, criei este jogo que vai durar os 11 dias que faltam para te ver :( <br>
+        Este jogo chama-se…. JOKER edição Alfacinha <3 <br>
         Cada dia vais ter uma pergunta para responde e podes usar 1 Alfacinha, caso precises de ajuda, que irá remover 1 das opções erradas hihi<br><br>
-        PREMIO*:Para poderes depois reclamar o teu premio/prêmios terás de tirar uma foto e enviar-me, como prova de que acertaste hehe &lt;3 No caso de chegares aos 11/11 terás direito a um prémio adicional GIGANTEEEEEEEEE! uhuhuhuhuhu hihihihihihi &lt;3<br><br>
-        NAO TE ESQUEÇAS MEU AMORZINHO!! GOOD LUCKKK!! &lt;3 &lt;3 &lt;3<br><br>
-        *como ganhar todos os premios...cheat sheet time... vamos fingir que isto não está aqui.. isto não sou eu a querer que ganhes o premio gigante....então caso erres faz refresh e volta a tentar hihihi shhhhhh ninguem sabe &lt;3"</p>
-        <button onclick="showQuestion()">Ver Pergunta de Hoje</button>
+
+        PREMIO*: Para poderes depois reclamar o teu premio/prêmios terás de tirar uma foto e enviar-me, como prova de que acertaste hehe <3 No caso de chegares aos 11/11 terás direito a um prémio adicional GIGANTEEEEEEEEE! uhuhuhuhuhu hihihihihihi <3<br><br>
+
+        NAO TE ESQUEÇAS MEU AMORZINHO!! GOOD LUCKKK!! <3 <3 <3<br><br>
+
+        *como ganhar todos os premios...cheat sheet time... vamos fingir que isto não está aqui.. isto não sou eu a querer que ganhes o premio gigante....então caso erres faz refresh e volta a tentar hihihi shhhhhh ninguem sabe <3"</p>
+        <button onclick="showQuestion()">Ir para a pergunta de hoje</button>
     </div>
 
-    <div id="questionContainer">
-        <p id="questionText"></p>
-        <button class="option" id="option1" onclick="selectOption('a')"></button>
-        <button class="option" id="option2" onclick="selectOption('b')"></button>
-        <button class="option" id="option3" onclick="selectOption('c')"></button>
-        <button class="option" id="option4" onclick="selectOption('d')"></button>
-        <button id="alfacinhaBtn" onclick="useAlfacinha()">Usar Alfacinha</button>
+    <div id="questionContainer" class="question-container">
+        <p class="question" id="questionText"></p>
+        <div class="options">
+            <button id="option1" onclick="selectOption('a')"></button>
+            <button id="option2" onclick="selectOption('b')"></button>
+            <button id="option3" onclick="selectOption('c')"></button>
+            <button id="option4" onclick="selectOption('d')"></button>
+        </div>
+        <button id="alfacinhaBtn" class="alfacinha-btn" onclick="useAlfacinha()">Alfacinha</button>
+        <div id="feedbackMessage" class="message"></div>
     </div>
 
-    <p id="feedbackMessage"></p>
-    <div id="finalMessage" style="color: white; font-size: 24px;">
-        <p>tu ganhaste o JOKER edição Alfacinha e eu ganhei a lotaria/euromilhoes/tudooo porque te conheci, maior sorte que essa é impossível &lt;3 &lt;3 &lt;3 !</p>
+    <div id="finalMessage">
+        <h1>tu ganhaste o JOKER edição Alfacinha e eu ganhei a lotaria/euromilhoes/tudooo porque te conheci, maior sorte que essa é impossível <3 <3 <3 !</h1>
     </div>
 
     <script>
+        const correctPassword = "nao_te_esquecas";
+
         function checkPassword() {
-            const password = document.getElementById('password').value;
-            if (password === "nao_te_esquecas") {
-                document.getElementById('passwordContainer').style.display = 'none';
-                document.getElementById('introMessage').style.display = 'block';
+            const inputPassword = document.getElementById('passwordInput').value;
+            if (inputPassword === correctPassword) {
+                document.getElementById('passwordPrompt').style.display = 'none';
+                document.getElementById('intro').style.display = 'block';
             } else {
-                alert("Senha incorreta. Tente novamente.");
+                alert("Palavra-passe incorreta. Tente novamente.");
             }
         }
 
         function showQuestion() {
-            document.getElementById('introMessage').style.display = 'none';
-            
             const today = new Date().toLocaleDateString('pt-PT', { day: '2-digit', month: '2-digit', year: 'numeric' });
             const questions = {
                 "26/08/2024": {
@@ -106,7 +171,7 @@
                     correct: "c"
                 },
                 "27/08/2024": {
-                    text: "How tall am I?",
+                    text: "How tall am i?",
                     options: ["12.48 Twixs", "13.28 Twixs", "15,36 Twixs", "14,24 Twixs"],
                     correct: "b"
                 },
@@ -116,7 +181,7 @@
                     correct: "a"
                 },
                 "29/08/2024": {
-                    text: "Which day did I meet my nugggggget in person for the first time?",
+                    text: "Which day did i meet my nugggggget in person for the first time?",
                     options: ["22.07.2024", "21.07.2024", "13.07.2024", "2.08.2024"],
                     correct: "c"
                 },
@@ -187,17 +252,20 @@
                 "05/09/2024": "d"
             };
 
-            const correctOption = questions[today];
-
-            if (selectedOption === correctOption) {
-                document.getElementById('feedbackMessage').textContent = "PARABENS MEU NUGGGGGET! GANHASTE 1 VALE O QUE TU QUISERES! ÉS LINDO!";
+            const feedbackMessage = document.getElementById('feedbackMessage');
+            if (questions[today] === selectedOption) {
+                feedbackMessage.textContent = "PARABENS MEU NUGGGGGET! GANHASTE 1 VALE O QUE TU QUISERES! ÉS LINDO!";
+                feedbackMessage.style.color = 'gold';
             } else {
-                document.getElementById('feedbackMessage').textContent = "Não tem mal meu nugggget, ficas a dever me 1 VALE O QUE TU QUISERES! ÉS LINDO NA MESMA!";
+                feedbackMessage.textContent = "Não tem mal meu nugggget, ficas a dever me 1 VALE O QUE TU QUISERES! ÉS LINDO NA MESMA!";
+                feedbackMessage.style.color = 'red';
             }
 
             if (today === "05/09/2024") {
-                document.getElementById('questionContainer').style.display = 'none';
-                document.getElementById('finalMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('questionContainer').style.display = 'none';
+                    document.getElementById('finalMessage').style.display = 'block';
+                }, 2000);
             }
         }
 
@@ -224,15 +292,13 @@
 
             const correctOption = questions[today];
             const options = ["option1", "option2", "option3", "option4"];
-            
             let removed = false;
+
             while (!removed) {
                 const randomIndex = Math.floor(Math.random() * options.length);
-                const optionElement = document.getElementById(options[randomIndex]);
-                
-                // Check if the option is incorrect and has not already been removed
-                if (optionElement && options[randomIndex] !== "option" + correctOption.toUpperCase() && optionElement.style.display !== 'none') {
-                    optionElement.style.display = 'none';
+                const optionButton = document.getElementById(options[randomIndex]);
+                if (options[randomIndex] !== `option${correctOption}` && optionButton.style.display !== 'none') {
+                    optionButton.style.display = 'none';
                     removed = true;
                 }
             }
